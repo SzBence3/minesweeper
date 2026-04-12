@@ -4,6 +4,8 @@
 namespace tms{
     void playGame(Screen& screen, Game& game){
         screen.clear();
+        auto [h,w] = game.getSize();
+        game.setCursorPosition(w/2, h/2);
 
         while (game.getState() >= 0){
             // screen.clear();

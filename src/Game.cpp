@@ -188,10 +188,10 @@ namespace tms{
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
                 Pixel pixel;
-                if(cells[i][j].isMine && state == LOST) pixel = {"󰷚", RED_BG, DEFAULT_BG}; 
+                if(cells[i][j].isMine && state == LOST) pixel = {"󰷚", RED_FG, DEFAULT_BG}; 
                 else if(cells[i][j].isFlagged) pixel = {"󰈿", RED_FG, BRIGHT_BLACK_BG};
                 else if(cells[i][j].isRevealed){
-                    if(cells[i][j].isMine) pixel = {"󰷚", DEFAULT_FG, DEFAULT_BG};
+                    if(cells[i][j].isMine) pixel = {"󰷚", RED_FG, DEFAULT_BG};
                     else if(countAdjacentMines(j, i) == 0) pixel = {" ", DEFAULT_FG, DEFAULT_BG};
                     else pixel = {std::to_string(countAdjacentMines(j, i)), numberColors[countAdjacentMines(j, i)], DEFAULT_BG};
                 }
@@ -206,20 +206,5 @@ namespace tms{
         }
         
         return picture;
-    }
-    void Game::startGame(int x, int y){
-        std::vector<std::pair<int, int>> toPlace;
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-                if(!(j == x && i == y) && (std::abs(j - x) > 1 || std::abs(i - y) > 1)){
-                    toPlace.emplace_back(j, i);
-                }
-            }
-        }
-        std::shuffle(toPlace.begin(), toPlace.end(), std::mt19937(std::random_device()()));
-        for(int i = 0; i < toPlace.size() && i < flagsLeft; i++){
-            cells[toPlace[i].second][toPlace[i].first].isMine = true;
-        }
-        state = RUNNING;
     }
 }

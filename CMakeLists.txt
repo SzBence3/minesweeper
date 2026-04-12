@@ -14,5 +14,6 @@ add_executable(minesweeper
     src/Screen.h
     src/utils.h
     src/utils.cpp
+    src/Generation.cpp
 )
 
