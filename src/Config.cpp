@@ -37,6 +37,17 @@ namespace tms{
 
 
         // Override with command-line arguments
+        if (args.size() == 1 && args[0] == "--help") {
+            std::cout << "Usage: tms [options]\n"
+                      << "Options:\n"
+                      << "  --width=<value>       Set the width of the game board\n"
+                      << "  --height=<value>      Set the height of the game board\n"
+                      << "  --minecount=<value>  Set the number of mines\n"
+                      << "  --isFastFlag=<true|false>  Enable or disable fast flagging\n"
+                      << "  --isFastSweep=<true|false> Enable or disable fast sweeping\n"
+                      << "  --mode=<easy|medium|hard>  Set predefined game mode\n";
+            exit(0);
+        }
         for (const auto& arg : args) {
             auto delimiterPos = arg.find('=');
             if (delimiterPos != std::string::npos) {

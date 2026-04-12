@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.23)
 
 project(Minesweeper)
 
-add_executable(minesweeper
+add_executable(term-minesweeper
     src/main.cpp
     src/Game.cpp
     src/Screen.cpp
@@ -17,3 +17,7 @@ add_executable(minesweeper
     src/Generation.cpp
 )
 
+install(
+    TARGETS term-minesweeper
+    DESTINATION bin
+)
