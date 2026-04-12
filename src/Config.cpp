@@ -45,7 +45,10 @@ namespace tms{
                       << "  --minecount=<value>  Set the number of mines\n"
                       << "  --isFastFlag=<true|false>  Enable or disable fast flagging\n"
                       << "  --isFastSweep=<true|false> Enable or disable fast sweeping\n"
-                      << "  --mode=<easy|medium|hard>  Set predefined game mode\n";
+                      << "  --mode=<easy|medium|hard>  Set predefined game mode\n"
+                      << "  --help                Show this help message\n"
+                      << "You can move with hjkl and place flags with f and sweep with s\n"
+                      << std::endl;
             exit(0);
         }
         for (const auto& arg : args) {
