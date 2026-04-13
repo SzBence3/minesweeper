@@ -1,6 +1,8 @@
 #include "Screen.h"
 #include <iostream>
 
+#ifndef _WIN32
+
 #include <unistd.h>
 #include <termios.h>
 
@@ -19,6 +21,9 @@ char getch() {
     if (tcsetattr(0, TCSADRAIN, &old) < 0) perror("tcsetattr ~ICANON");
     return buf;
 }
+#else
+#include <conio.h>
+#endif
 
 
 namespace tms{

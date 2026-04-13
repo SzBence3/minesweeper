@@ -189,7 +189,7 @@ namespace tms{
             for(int j = 0; j < width; j++){
                 Pixel pixel;
                 if(cells[i][j].isMine && state == LOST) pixel = {"󰷚", RED_FG, DEFAULT_BG}; 
-                else if(cells[i][j].isFlagged) pixel = {"󰈿", RED_FG, BRIGHT_BLACK_BG};
+                else if(cells[i][j].isFlagged) pixel = {"󰈿", BRIGHT_RED_FG, DEFAULT_BG};
                 else if(cells[i][j].isRevealed){
                     if(cells[i][j].isMine) pixel = {"󰷚", RED_FG, DEFAULT_BG};
                     else if(countAdjacentMines(j, i) == 0) pixel = {" ", DEFAULT_FG, DEFAULT_BG};
