@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.23)
 
 project(Minesweeper)
 
+# setting c++ version to 20
+set(CMAKE_CXX_STANDARD 20)
+
 add_executable(term-minesweeper
     src/main.cpp
     src/Game.cpp
