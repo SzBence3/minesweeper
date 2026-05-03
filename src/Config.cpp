@@ -8,12 +8,12 @@ namespace tms{
             std::string configFile
         )
     {
-        Game::Image image = {10, 10, true, true, 20};
+        Game::Image image = {10, 10, 30, "", Game::Settings()};
         // Default values
         std::map<std::string, Game::Image> Modes = {
-            {"easy", {9, 9, true, true, 15}},
-            {"medium", {16, 16, true, true, 40}},
-            {"hard", {16, 32, true, true, 99}}
+            {"easy", {9, 9, 15, "", Game::Settings()}},
+            {"medium", {16, 16, 40, "", Game::Settings()}},
+            {"hard", {16, 32, 99, "", Game::Settings()}}
         };
         // Load from config file
         std::ifstream infile(configFile);
@@ -28,8 +28,8 @@ namespace tms{
                     if (key == "width") image.width = std::stoi(value);
                     else if (key == "height") image.height = std::stoi(value);
                     else if (key == "minecount") image.minecount = std::stoi(value);
-                    else if (key == "isFastFlag") image.isFastFlag = (value == "true");
-                    else if (key == "isFastSweep") image.isFastSweep = (value == "true");
+                    else if (key == "isFastFlag") image.settings.isFastFlag = (value == "true");
+                    else if (key == "isFastSweep") image.settings.isFastSweep = (value == "true");
                 }
             }
             infile.close();
@@ -59,8 +59,8 @@ namespace tms{
                 if (key == "--width") image.width = std::stoi(value);
                 else if (key == "--height") image.height = std::stoi(value);
                 else if (key == "--minecount") image.minecount = std::stoi(value);
-                else if (key == "--isFastFlag") image.isFastFlag = (value == "true");
-                else if (key == "--isFastSweep") image.isFastSweep = (value == "true");
+                else if (key == "--isFastFlag") image.settings.isFastFlag = (value == "true");
+                else if (key == "--isFastSweep") image.settings.isFastSweep = (value == "true");
                 else if (key == "--mode") {
                     auto modeIt = Modes.find(value);
                     if (modeIt != Modes.end()) {

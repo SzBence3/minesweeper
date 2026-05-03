@@ -9,8 +9,8 @@ namespace tms{
     {
         width = image.width;
         height = image.height;
-        isFastFlag = image.isFastFlag;
-        isFastSweep = image.isFastSweep;
+        isFastFlag = image.settings.isFastFlag;
+        isFastSweep = image.settings.isFastSweep;
 
         cells = getCellsFromImage(image.data, height, width);
         state = calcGameState();
@@ -52,14 +52,17 @@ namespace tms{
         int count = 0;
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                if(cells[i][j].isFlagged) count++;
+                if(!cells[i][j].isFlagged && cells[i][j].isMine) count++;
             }
         }
         return count;
     }
 
     bool Game::sweep(int x, int y){
-        if(state == STARTING) startGame(x, y);
+        if(state == STARTING){ 
+            startGame(x, y);
+            return true;
+        }
         if(state != RUNNING) return false;
         if(cells[y][x].isFlagged) return false;
         if(cells[y][x].isRevealed){ 
@@ -115,6 +118,18 @@ namespace tms{
             else return false;
         }else{
             cells[y][x].isFlagged = !cells[y][x].isFlagged;
+        }
+        flagsLeft = countFlagsLeft();
+        return true;
+    }
+    bool Game::setFlag(int x, int y, bool flag){
+        if(state != RUNNING) return false;
+        if(cells[y][x].isRevealed){
+            if(!isFastFlag) return false;
+            if(countAdjacentUnRevealed(x, y) == countAdjacentMines(x, y)) flagAdjacent(x, y);
+            else return false;
+        }else{
+            cells[y][x].isFlagged = flag;
         }
         flagsLeft = countFlagsLeft();
         return true;

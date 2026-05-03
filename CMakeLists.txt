@@ -5,6 +5,8 @@ project(Minesweeper)
 # setting c++ version to 20
 set(CMAKE_CXX_STANDARD 20)
 
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
+
 add_executable(term-minesweeper
     src/main.cpp
     src/Game.cpp
@@ -18,6 +20,7 @@ add_executable(term-minesweeper
     src/utils.h
     src/utils.cpp
     src/Generation.cpp
+    src/solve.cpp
 )
 
 install(

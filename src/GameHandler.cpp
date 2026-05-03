@@ -1,8 +1,9 @@
 #include "GameHandler.h"
-
+#include <fstream>
 
 namespace tms{
     void playGame(Screen& screen, Game& game){
+
         screen.clear();
         auto [h,w] = game.getSize();
         game.setCursorPosition(w/2, h/2);
@@ -40,6 +41,18 @@ namespace tms{
                 case 'f': {
                     auto [x,y] = game.getCursorPosition();
                     game.toggleFlag(x, y);
+                    break;
+                }
+                case 'q': {
+                    return;
+                }
+                case 'y': {
+                    bool r = game.solveIteration();
+                    std::cerr << "Iteration result: " << r << std::endl;
+                    break;
+                }
+                case 'c': {
+                    game.solve();
                     break;
                 }
             }
