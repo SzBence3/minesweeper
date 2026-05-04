@@ -11,9 +11,9 @@ namespace tms{
         Game::Image image = {10, 10, 30, "", Game::Settings()};
         // Default values
         std::map<std::string, Game::Image> Modes = {
-            {"easy", {9, 9, 15, "", Game::Settings()}},
-            {"medium", {16, 16, 40, "", Game::Settings()}},
-            {"hard", {16, 32, 99, "", Game::Settings()}}
+            {"easy", {9, 9, 20, "", Game::Settings()}},
+            {"medium", {16, 16, 70, "", Game::Settings()}},
+            {"hard", {16, 32, 125, "", Game::Settings()}}
         };
         // Load from config file
         std::ifstream infile(configFile);

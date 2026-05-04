@@ -24,15 +24,17 @@ namespace tms{
 
         bool addedMineCount = false;
         int iteration = 0;
-        while(true){
+        mergeIdenticalGroups(cells, groups);
+        while(getState() == RUNNING){
+            // std::cerr << "Iteration " << iteration << ": " << cells.size() << " cells, " << groups.size() << " groups" << std::endl;
             iteration++;
             if(iteration > MAX_ITERATIONS){
                 return false;
             }
             // debugPrintGroups(cells, groups);
             if(makeObviusMoves(cells, groups)){
+                // std::cerr << "Made obvius move in iteration " << iteration << std::endl;
                 return true;
-                std::cerr << "Made obvius move in iteration " << iteration << std::endl;
             }
             if(!makeNewGroups(cells, groups)){
                 if(!addedMineCount && cells.size() < 10){
@@ -49,8 +51,8 @@ namespace tms{
     }
     std::vector<Game::SolveCell> Game::getSolveCells(){
         std::vector<SolveCell> solveCells;
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
                 if(!cells[j][i].isRevealed && !cells[j][i].isFlagged){
                     SolveCell cell;
                     cell.x = i;
@@ -67,15 +69,15 @@ namespace tms{
         for(int i = 0; i < cells.size(); i++){
             cellMap[{cells[i].x, cells[i].y}] = &cells[i];
         }
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
                 if(this->cells[j][i].isRevealed && countAdjacentUnRevealed(i, j) > 0){
                     Group group;
                     group.minMines = countAdjacentMines(i, j) - countAdjacentFlags(i, j);
                     group.maxMines = group.minMines;
                     for(int k = -1; k <= 1; k++){
                         for(int l = -1; l <= 1; l++){
-                            if(i + k < 0 || i + k >= height || j + l < 0 || j + l >= width || !(k || l) 
+                            if(i + k < 0 || i + k >= width || j + l < 0 || j + l >= height || !(k || l) 
                                     || this->cells[j+l][i+k].isFlagged == true ||  this->cells[j+l][i+k].isRevealed == true) 
                                 continue;
                             

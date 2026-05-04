@@ -173,47 +173,47 @@ namespace tms{
         for(int i = 0; i < picture.height; i += 2){
             for(int j = 0; j < picture.width; j++){
                 if(j % 4 == 0)
-                    picture.data[i][j] = {"┼", DEFAULT_FG, DEFAULT_BG};
+                    picture.data[i][j] = {"┼", settings.frameColor, settings.frameBackgroundColor};
                 else
-                    picture.data[i][j] = {"─", DEFAULT_FG, DEFAULT_BG};
+                    picture.data[i][j] = {"─", settings.frameColor, settings.frameBackgroundColor};
             }
         }
         for(int i = 0; i < picture.height; i++){
             if(i % 2 == 0) continue;
             for(int j = 0; j < picture.width; j += 4){
-                picture.data[i][j] = {"│", DEFAULT_FG, DEFAULT_BG};
+                picture.data[i][j] = {"│", settings.frameColor , settings.frameBackgroundColor};
             }
         }
         for(int i = 0; i < picture.width; i+= 4){
-            picture.data[0][i] = {"┬", DEFAULT_FG, DEFAULT_BG};
-            picture.data[picture.height-1][i] = {"┴", DEFAULT_FG, DEFAULT_BG};
+            picture.data[0][i] = {"┬", settings.frameColor, settings.frameBackgroundColor};
+            picture.data[picture.height-1][i] = {"┴", settings.frameColor, settings.frameBackgroundColor};
         }
         for(int i = 0; i < picture.height; i+= 2){
-            picture.data[i][0] = {"├", DEFAULT_FG, DEFAULT_BG};
-            picture.data[i][picture.width-1] = {"┤", DEFAULT_FG,DEFAULT_BG};
+            picture.data[i][0] = {"├", settings.frameColor, settings.frameBackgroundColor};
+            picture.data[i][picture.width-1] = {"┤", settings.frameColor , settings.frameBackgroundColor};
         }
 
-        picture.data[0][0] = {"┌", DEFAULT_FG, DEFAULT_BG};
-        picture.data[0][picture.width-1] = {"┐", DEFAULT_FG, DEFAULT_BG};
-        picture.data[picture.height-1][0] = {"└", DEFAULT_FG, DEFAULT_BG};
-        picture.data[picture.height-1][picture.width-1 ] = {"┘", DEFAULT_FG, DEFAULT_BG};
+        picture.data[0][0] = {"┌", settings.frameColor, settings.frameBackgroundColor};
+        picture.data[0][picture.width-1] = {"┐", settings.frameColor, settings.frameBackgroundColor};
+        picture.data[picture.height-1][0] = {"└",  settings.frameColor, settings.frameBackgroundColor};
+        picture.data[picture.height-1][picture.width-1 ] = {"┘", settings.frameColor, settings.frameBackgroundColor};
 
-        Color numberColors[] = {DEFAULT_FG, BRIGHT_BLUE_FG, BRIGHT_GREEN_FG, BRIGHT_RED_FG, BRIGHT_MAGENTA_FG, BRIGHT_CYAN_FG, BRIGHT_YELLOW_FG, BRIGHT_WHITE_FG};
+        Color numberColors[] = {DEFAULT_FG, BLUE_FG, GREEN_FG, RED_FG, BRIGHT_BLUE_FG, BRIGHT_RED_FG, CYAN_FG, BRIGHT_CYAN_FG, BRIGHT_BLACK_FG};
 
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
                 Pixel pixel;
-                if(cells[i][j].isMine && state == LOST) pixel = {"󰷚", RED_FG, DEFAULT_BG}; 
-                else if(cells[i][j].isFlagged) pixel = {"󰈿", BRIGHT_RED_FG, DEFAULT_BG};
+                if(cells[i][j].isMine && state == LOST) pixel = {settings.mineSymbol, settings.mineColor, settings.mineBackgroundColor}; 
+                else if(cells[i][j].isFlagged) pixel = {settings.flagSymbol, settings.flagColor, settings.flagBackgroundColor};
                 else if(cells[i][j].isRevealed){
-                    if(cells[i][j].isMine) pixel = {"󰷚", RED_FG, DEFAULT_BG};
-                    else if(countAdjacentMines(j, i) == 0) pixel = {" ", DEFAULT_FG, DEFAULT_BG};
-                    else pixel = {std::to_string(countAdjacentMines(j, i)), numberColors[countAdjacentMines(j, i)], DEFAULT_BG};
+                    if(cells[i][j].isMine) pixel = {settings.mineSymbol, settings.mineColor, settings.mineBackgroundColor};
+                    else if(countAdjacentMines(j, i) == 0) pixel = {" ", DEFAULT_FG, settings.numberBackgroundColor};
+                    else pixel = {std::to_string(countAdjacentMines(j, i)), settings.numberColors[countAdjacentMines(j, i)], settings.numberBackgroundColor};
                 }
-                else pixel = {" ", DEFAULT_FG, BRIGHT_BLACK_BG};
+                else pixel = {" ", DEFAULT_FG, settings.unrevealedColor};
 
                 if(cursorX == j && cursorY == i){
-                    pixel.bgColor = YELLOW_BG;
+                    pixel.bgColor = settings.cursorBackgroundColor;
                 }
 
                 picture.data[i*2+1][j*4+2] = pixel;

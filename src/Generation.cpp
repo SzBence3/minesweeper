@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <random>
 
-#define MAX_ITERATIONS 50
+#define MAX_ITERATIONS 500
 
 namespace tms{
     void Game::generateMines(int x, int y){
@@ -34,8 +34,11 @@ namespace tms{
                 return;
             }
             reset();
+            std::cerr << "Generated unsolvable game, regenerating... (iteration " << iteration << ")" << std::endl;
             generateMines(x, y);
+
        }
+       std::cerr << "Generated solvable game in " << iteration << " iterations" << std::endl;
     }
     bool Game::isSolvable(){
         Game copy = *this;
